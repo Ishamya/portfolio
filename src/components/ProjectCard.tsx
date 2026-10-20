@@ -1,0 +1,4 @@
+import { ArrowUpRight } from 'lucide-react';
+import type { Project } from '../data/projects';
+import { Artwork } from './Artwork';
+export function ProjectCard({project,onOpen}:{project:Project;onOpen:(p:Project)=>void}){return <button className="project-card group" onClick={()=>onOpen(project)} aria-label={`Explore ${project.title} concept`}><div className="project-meta"><span>[ {project.id} ] <span className="muted">/ {project.category}</span></span><span>{project.year} <span className="project-pill">EXPLORE DEMO <ArrowUpRight size={11}/></span></span></div><div className="project-viewport"><Artwork kind={project.art}/><span className="preview-arrow"><ArrowUpRight/></span></div><div className="project-footer"><div><h3>{project.title}</h3><p>{project.description}</p></div><ArrowUpRight className="project-title-arrow" size={28}/></div><div className="tags">{project.tags.map(tag=><span key={tag}>#{tag}</span>)}</div></button>}

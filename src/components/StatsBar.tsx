@@ -1,0 +1,2 @@
+const stats=[['001','PROJECTS DELIVERED','35+'],['002','LINES OF CODE','250K+'],['003','GLOBAL CLIENTS','12+'],['004','SYSTEM UPTIME','99.9%']];
+export function StatsBar(){return <div className="stats-section"><div className="stats-grid">{stats.map(([id,label,value])=><div className="stat" key={id}><span className="eyebrow"><span className="muted">{id} //</span> {label}</span><strong>{value}<span>↗</span></strong></div>)}</div><div className="demo-note">ILLUSTRATIVE METRICS / REPLACE WITH VERIFIED RESULTS</div></div>}
