@@ -1,5 +1,23 @@
-import { useState } from 'react';
-import { ArrowUpRight, ArrowUp, Copy, Check, Github, Linkedin, MessageCircle } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, ArrowUp, Copy, Check } from 'lucide-react';
 import { profile } from '../data/profile';
 import { Reveal } from './Reveal';
-export function Footer(){const [toast,setToast]=useState('');const [copied,setCopied]=useState(false);function notify(message:string){setToast(message);window.setTimeout(()=>setToast(''),3200);}async function copy(){try{await navigator.clipboard.writeText(profile.email);setCopied(true);notify('EMAIL COPIED TO CLIPBOARD');window.setTimeout(()=>setCopied(false),3000);}catch{notify(`COPY MANUALLY: ${profile.email}`);}}return <footer id="contact" className="footer section-pad"><Reveal><div className="section-kicker"><span className="eyebrow">(04 // NEXT CHAPTER)</span><span className="availability"><i/> GOOD THINGS START WITH A CONVERSATION</span></div><div className="footer-heading"><h2>LET’S BUILD<br/>THE NEXT <span className="accent">BIG THING.</span></h2><ArrowUpRight className="footer-big-arrow" strokeWidth={1}/></div><div className="contact-row"><div><p>Have a project, a wild idea, or just a good question?</p><button className="email-button" onClick={copy}>{profile.email}{copied?<Check size={19}/>:<Copy size={19}/>}</button>{profile.emailIsPlaceholder&&<span className="contact-placeholder">PLACEHOLDER ADDRESS · UPDATE IN PROFILE.TS</span>}</div><div className="socials">{[{key:'github',label:'GitHub',Icon:Github},{key:'linkedin',label:'LinkedIn',Icon:Linkedin},{key:'twitter',label:'X / Twitter',Icon:null},{key:'discord',label:'Discord',Icon:MessageCircle}].map(({key,label,Icon})=>{const url=profile.socials[key as keyof typeof profile.socials];return <a key={key} href={url||'#contact'} aria-label={label} title={url?label:`Add your ${label} profile`} onClick={e=>{if(!url){e.preventDefault();notify(`ADD YOUR ${label.toUpperCase()} URL IN PROFILE.TS`);}}} target={url?'_blank':undefined} rel="noreferrer">{Icon?<Icon size={19}/>:<span className="x-icon">𝕏</span>}</a>;})}</div></div></Reveal><div className="footer-bottom"><span>© 2026 ISHAMYA FERNANDO</span><span>CRAFTED WITH INTENTION. POWERED BY CURIOSITY.</span><a href="#home">BACK TO TOP <ArrowUp size={13}/></a></div><div className="toast" role="status" aria-live="polite" data-visible={!!toast}>{toast&&<><Check size={15}/>{toast}</>}</div></footer>}
+
+export function Footer() {
+  const [feedback, setFeedback] = useState('');
+  const feedbackTimer = useRef<ReturnType<typeof window.setTimeout> | null>(null);
+  useEffect(() => () => { if (feedbackTimer.current !== null) window.clearTimeout(feedbackTimer.current); }, []);
+  async function copyEmail() {
+    try { await navigator.clipboard.writeText(profile.email); setFeedback('Email copied to clipboard.'); }
+    catch { setFeedback('Copy unavailable. Select the email address or use the email link.'); }
+    if (feedbackTimer.current !== null) window.clearTimeout(feedbackTimer.current);
+    feedbackTimer.current = window.setTimeout(() => setFeedback(''), 4000);
+  }
+  return <footer id="contact" className="contact-section" aria-labelledby="contact-title"><div className="page-container">
+    <Reveal><div className="contact-top"><p className="eyebrow">05 / What’s next?</p><p>Engineering opportunities<br />& freelance projects</p></div>
+      <div className="contact-composition"><h2 id="contact-title">Let’s build<br /><span className="serif">something useful.</span></h2><div className="contact-invitation"><p>Have a role, a project,<br />or a good starting point?</p><a className="text-link" href={`mailto:${profile.email}`}>Start a conversation <ArrowUpRight size={20} aria-hidden="true" /></a></div></div>
+      <div className="contact-details"><div className="email-actions"><a className="email-link" href={`mailto:${profile.email}`}>{profile.email}<ArrowUpRight size={20} aria-hidden="true" /></a><button type="button" className="copy-email icon-button" onClick={copyEmail} aria-label="Copy email address">{feedback.startsWith('Email copied') ? <Check size={17} aria-hidden="true" /> : <Copy size={17} aria-hidden="true" />}</button></div><div className="social-links"><a href={profile.socials.github} target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight size={15} aria-hidden="true" /><span className="sr-only"> (opens in a new tab)</span></a><a href={profile.socials.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight size={15} aria-hidden="true" /><span className="sr-only"> (opens in a new tab)</span></a></div></div>
+    </Reveal>
+    <div className="footer-bottom"><span>© {new Date().getFullYear()} Ishamya Fernando</span><span>Considered design. Purposeful engineering.</span><a href="#home">Back to top <ArrowUp size={14} aria-hidden="true" /></a></div>
+  </div><div className="toast" role="status" aria-live="polite" data-visible={Boolean(feedback)}>{feedback}</div></footer>;
+}

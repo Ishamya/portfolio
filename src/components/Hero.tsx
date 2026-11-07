@@ -1,5 +1,17 @@
-import { ArrowDownRight, ArrowUpRight } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { Artwork } from './Artwork';
-export function Hero(){return <section id="home" className="hero"><div className="hero-top"><span className="eyebrow">(01 // INTRO) <span className="muted">— HIGH-PERFORMANCE CREATIVE CODING</span></span><span className="availability"><i/> OPEN TO COLLABORATE</span></div><div className="hero-content"><motion.h1 initial={{opacity:0,y:24}} animate={{opacity:1,y:0}} transition={{duration:.7}}>ENGINEERING<br/>DIGITAL EXPERIENCES<br/>THAT <span className="accent">DROP BASS<span className="hero-period">.</span></span></motion.h1><div className="hero-orbit"><Artwork kind="orbit"/><span className="orbit-label">DESIGN × CODE × FEELING</span></div></div><div className="hero-bottom"><p>Creative developer at the intersection of<br/>thoughtful design & exceptional engineering.</p><a className="primary-button" href="#work">EXPLORE SELECTED WORK <ArrowDownRight size={20}/></a><a href="#contact" className="hero-note">HAVE SOMETHING IN MIND?<br/><span>LET’S MAKE IT REAL <ArrowUpRight size={13}/></span></a></div><div className="hero-cross">+</div></section>}
-export function Marquee(){const text='FULL-STACK ARCHITECT ✦ THREE.JS & SHADERS ✦ UI/UX DESIGN ✦ MOTION GRAPHICS ✦ NEXT.JS & TAILWIND ✦ ';return <div className="marquee" aria-label="Full-stack architecture, Three.js and shaders, UI/UX design, motion graphics, Next.js and Tailwind"><motion.div aria-hidden="true" animate={{x:['-50%','0%']}} transition={{repeat:Infinity,duration:40,ease:'linear'}}>{[0,1].map(n=><span key={n}>{text}</span>)}</motion.div></div>}
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { Reveal } from './Reveal';
+
+export function Hero() {
+  return <section id="home" className="editorial-hero" aria-labelledby="hero-title">
+    <div className="page-container">
+      <Reveal>
+        <div className="hero-intro"><p className="eyebrow">Ishamya Fernando / Software developer</p><span className="hero-disciplines">Web. Mobile. Intelligent systems.</span></div>
+        <div className="hero-composition">
+          <h1 id="hero-title">Building<br /><span>real products.</span></h1>
+          <div className="hero-aside"><span className="small-rule" aria-hidden="true" /><p>From the first interaction<br className="desktop-break" /> to the systems behind it.</p><p className="hero-description">I’m a software developer building thoughtful web, mobile and intelligent applications.</p></div>
+        </div>
+        <div className="hero-bottom"><div className="hero-actions"><a className="button button-dark" href="#work">Explore Work <ArrowDown size={16} aria-hidden="true" /></a><a className="text-link" href="#contact">Get in Touch <ArrowUpRight size={16} aria-hidden="true" /></a></div><p className="hero-footnote">Interfaces with intention.<br />Engineering with substance.</p></div>
+      </Reveal>
+    </div>
+  </section>;
+}

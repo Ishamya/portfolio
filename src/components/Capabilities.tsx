@@ -1,4 +1,17 @@
-import { Braces, MousePointer2, Box, Gauge, Component, Workflow, ArrowUpRight } from 'lucide-react';
 import { Reveal } from './Reveal';
-const capabilities=[{name:'FRONT-END\nARCHITECTURE',icon:Braces,text:'Scalable foundations. Interfaces built to last.',tags:'REACT / NEXT.JS / TYPESCRIPT'},{name:'CREATIVE\nINTERACTION DESIGN',icon:MousePointer2,text:'The small details that make a big impression.',tags:'FRAMER MOTION / GSAP / UI/UX'},{name:'3D & SHADER\nDEVELOPMENT',icon:Box,text:'Beyond the flat screen. Into another dimension.',tags:'THREE.JS / WEBGL / GLSL'},{name:'PERFORMANCE\nOPTIMIZATION',icon:Gauge,text:'Every millisecond is part of the experience.',tags:'CORE WEB VITALS / PROFILING'},{name:'DESIGN SYSTEMS\n& UI KITS',icon:Component,text:'One visual language. Infinite possibilities.',tags:'FIGMA / TAILWIND / STORYBOOK'},{name:'FULL-STACK\nINTEGRATION',icon:Workflow,text:'Connecting the dots from interface to data.',tags:'NODE.JS / REST / DATABASES'}];
-export function Capabilities(){return <section id="expertise" className="capabilities section-pad"><Reveal><div className="section-kicker"><span className="eyebrow">(02 // DISCIPLINES)</span><span className="eyebrow muted">THE TOOLKIT IS ALWAYS EVOLVING ↗</span></div><div className="section-heading"><h2>CODE. DESIGN.<br/><span className="muted">EVERYTHING BETWEEN.</span></h2><p>From the first pixel to the final deploy.<br/>A multidisciplinary approach to the web.</p></div></Reveal><div className="capability-grid">{capabilities.map((c,i)=><Reveal className="capability-card" key={c.name}><div className="capability-top"><c.icon size={24} strokeWidth={1.25}/><span className="eyebrow">0{i+1} /</span></div><h3>{c.name}</h3><p>{c.text}</p><div className="capability-bottom"><span>{c.tags}</span><ArrowUpRight size={15}/></div></Reveal>)}</div></section>}
+
+// Each discipline is grounded in the projects, not a proficiency rating.
+const capabilities = [
+  { name: 'Frontend engineering', text: 'Interfaces that make complex workflows feel clear.', tags: 'React · Next.js · TypeScript' },
+  { name: 'Backend & APIs', text: 'The services and workflows behind the screen.', tags: 'NestJS · Express · REST APIs' },
+  { name: 'Mobile development', text: 'Useful tools, built for the way people move.', tags: 'Flutter · Kotlin · SwiftUI' },
+  { name: 'Databases & cloud', text: 'Data models that connect an application’s parts.', tags: 'PostgreSQL · Firebase · Room' },
+  { name: 'AI & machine learning', text: 'Exploring discovery through hybrid recommendations.', tags: 'Python · scikit-learn · MovieLens' },
+  { name: 'Engineering practices', text: 'Care in the details, from source to browser.', tags: 'Git · Testing · Debugging' },
+];
+export function Capabilities() {
+  return <section id="expertise" className="expertise section-space" aria-labelledby="expertise-title"><div className="page-container expertise-layout">
+    <Reveal className="section-introduction"><p className="eyebrow">02 / Expertise</p><h2 id="expertise-title">Across the<br /><span className="serif">whole stack.</span></h2><p className="section-note">Different tools.<br />One considered experience.</p></Reveal>
+    <div className="expertise-grid">{capabilities.map((item, index) => <Reveal className="expertise-item" key={item.name} delay={(index % 3) * 0.04}><span className="item-number" aria-hidden="true">0{index + 1}</span><h3>{item.name}</h3><p>{item.text}</p><span className="technology-line">{item.tags}</span></Reveal>)}</div>
+  </div></section>;
+}
